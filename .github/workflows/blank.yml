@@ -23,27 +23,33 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: Prepare Dockerfile
-        run: |
-          cat > Dockerfile << EOF
-          FROM ubuntu:22.04
-          RUN apt-get update && apt-get install -y systemd --no-install-recommends
-          CMD [ "/lib/systemd/systemd" ]
-          EOF
+      - name: set env
+        run: echo a=b | tee -a ${GITHUB_ENV}
 
-      - name: Build container image
-        run: docker build -t cfengine -f ./Dockerfile .
+      - name: get env
+        run: cat ${GITHUB_ENV}
 
-
-      - name: Run container
-        run: docker run -d --privileged --name cfengine cfengine
-
-      - name: check docker
-        run: docker ps -a
-
-      - name: check docker again
-        run: sleep 2s && docker ps -a
-
-      - name: run stuff in container
-        run: docker exec -i cfengine echo hello
-
+      # - name: Prepare Dockerfile
+      #   run: |
+      #     cat > Dockerfile << EOF
+      #     FROM ubuntu:22.04
+      #     RUN apt-get update && apt-get install -y systemd --no-install-recommends
+      #     CMD [ "/lib/systemd/systemd" ]
+      #     EOF
+      #
+      # - name: Build container image
+      #   run: docker build -t cfengine -f ./Dockerfile .
+      #
+      #
+      # - name: Run container
+      #   run: docker run -d --privileged --name cfengine cfengine
+      #
+      # - name: check docker
+      #   run: docker ps -a
+      #
+      # - name: check docker again
+      #   run: sleep 2s && docker ps -a
+      #
+      # - name: run stuff in container
+      #   run: docker exec -i cfengine echo hello
+      #
