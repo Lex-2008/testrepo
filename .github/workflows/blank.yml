@@ -27,7 +27,7 @@ jobs:
         run: |
           cat > Dockerfile << EOF
           FROM ubuntu:22.04
-          RUN apt-get update && apt-get install -y systemd
+          RUN apt-get update && apt-get install -y systemd --no-install-recommends
           CMD [ "/lib/systemd/systemd" ]
           EOF
 
