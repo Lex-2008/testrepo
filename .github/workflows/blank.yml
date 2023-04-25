@@ -30,8 +30,8 @@ jobs:
           repository: cfengine/core
 
       - name: Move core here
-        run: mv /d/a/testrepo/testrepo/* /c/w
-        working-directory: c:
+        run: mv /d/a/testrepo/testrepo /c/w
+        working-directory: 'c:'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
