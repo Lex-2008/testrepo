@@ -38,9 +38,10 @@ jobs:
         run: "'c:/Program Files/Cfengine/bin/cf-agent.exe' --version"
         shell: bash
 
-      # - name: run one test
-      #   run: "c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K
-      #   working-directory: tests/acceptance/00_basics/01_compiler
+      - name: run one test
+        run: "c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K
+        working-directory: tests/acceptance/00_basics/01_compiler
+        shell: bash
 
 
       # - name: set env
