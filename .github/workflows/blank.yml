@@ -35,7 +35,7 @@ jobs:
         run: msiexec /i cfengine-nova-3.22.0a-26402-x86_64.msi
 
       - name: run cf-agent
-        run: "c:/Program Files/Cfengine/bin/cf-agent.exe" --version
+        run: 'c:/Program Files/Cfengine/bin/cf-agent.exe' --version
 
       # - name: run one test
       #   run: "c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K
