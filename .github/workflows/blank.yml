@@ -19,6 +19,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Checkout Core
+        uses: actions/checkout@v3
+        with:
+          repository: cfengine/core
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
@@ -28,6 +33,11 @@ jobs:
 
       - name: install CFEngine
         run: msiexec /i cfengine-nova-3.22.0a-26402-x86_64.msi
+
+      - name: run one test
+        run: "c:\Program Files\Cfengine\bin\cf-agent.exe" -D AUTO 013.cf -K
+        working-directory: tests\acceptance\00_basics\01_compiler
+
 
       # - name: set env
       #   run: echo a=b | tee -a ${GITHUB_ENV}
