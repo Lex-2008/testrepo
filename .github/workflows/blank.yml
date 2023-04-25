@@ -36,6 +36,7 @@ jobs:
 
       - name: run cf-agent
         run: "'c:/Program Files/Cfengine/bin/cf-agent.exe' --version"
+        shell: bash
 
       # - name: run one test
       #   run: "c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K
