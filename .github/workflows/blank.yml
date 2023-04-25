@@ -7,6 +7,11 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
 
+defaults:
+  run:
+    shell: bash
+    working-directory: /c/w
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -17,12 +22,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
 
       - name: Checkout Core
         uses: actions/checkout@v3
         with:
           repository: cfengine/core
+          path: /c/w
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -36,21 +42,17 @@ jobs:
 
       - name: run cf-agent
         run: "'c:/Program Files/Cfengine/bin/cf-agent.exe' --version"
-        shell: bash
 
       - name: dummy cf-secret, idk
         run: "touch 'c:/Program Files/Cfengine/bin/cf-secret.exe' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret.exe'"
-        shell: bash
 
       - name: run one test
         run: '"c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K'
-        working-directory: tests/acceptance/00_basics/01_compiler
-        shell: bash
+        working-directory: /c/w/tests/acceptance/00_basics/01_compiler
 
       - name: run all tests
         run: './testall --bindir="c:/Program Files/Cfengine/bin"'
-        working-directory: tests/acceptance
-        shell: bash
+        working-directory: /c/w/tests/acceptance
 
 
       # - name: set env
