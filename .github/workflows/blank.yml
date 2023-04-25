@@ -39,7 +39,7 @@ jobs:
         shell: bash
 
       - name: dummy cf-secret, idk
-        run: "touch 'c:/Program Files/Cfengine/bin/cf-secret' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret'"
+        run: "touch 'c:/Program Files/Cfengine/bin/cf-secret.exe' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret.exe'"
         shell: bash
 
       - name: run one test
