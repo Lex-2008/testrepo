@@ -40,6 +40,7 @@ jobs:
 
       - name: dummy cf-secret, idk
         run: "touch 'c:/Program Files/Cfengine/bin/cf-secret' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret'"
+        shell: bash
 
       - name: run one test
         run: '"c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K'
