@@ -43,6 +43,11 @@ jobs:
         working-directory: tests/acceptance/00_basics/01_compiler
         shell: bash
 
+      - name: run all tests
+        run: './testall --bindir="c:/Program Files/Cfengine/bin"'
+        working-directory: tests/acceptance
+        shell: bash
+
 
       # - name: set env
       #   run: echo a=b | tee -a ${GITHUB_ENV}
