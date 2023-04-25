@@ -52,11 +52,11 @@ jobs:
 
       - name: run one test
         run: '"c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K'
-        working-directory: /c/w/tests/acceptance/00_basics/01_compiler
+        working-directory: "c:/w/tests/acceptance/00_basics/01_compiler"
 
       - name: run all tests
         run: './testall --bindir="c:/Program Files/Cfengine/bin"'
-        working-directory: /c/w/tests/acceptance
+        working-directory: "c:/w/tests/acceptance"
 
 
       # - name: set env
