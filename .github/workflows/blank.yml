@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: investigate
-        run: "df -h /c /d; pwd"
+        run: "df -h; df -h /c; df -h /d"
         shell: bash
 
       # - name: Checkout Core
