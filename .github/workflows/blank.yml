@@ -30,7 +30,7 @@ jobs:
           repository: cfengine/core
 
       - name: Move core here
-        run: mv /d/a/testrepo/testrepo /c/w
+        run: mv "$GITHUB_WORKSPACE" /c/w
         working-directory: 'c:'
 
       # Runs a single command using the runners shell
