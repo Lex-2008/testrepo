@@ -9,7 +9,7 @@ on:
 
 defaults:
   run:
-    shell: bash
+    shell: msys2 {0}
     working-directory: c:\w
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -23,6 +23,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
 
       - name: Checkout Core
         uses: actions/checkout@v3
