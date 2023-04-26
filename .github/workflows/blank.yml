@@ -34,8 +34,8 @@ jobs:
         working-directory: 'c:'
 
       # Runs a single command using the runners shell
-      - name: export
-        run: export
+      - name: whoami
+        run: whoami
 
       - name: get CFEngine
         run: c:/msys64/usr/bin/wget.exe  http://buildcache.cfengine.com/packages/testing-pr/jenkins-master-nightly-pipeline-1263/PACKAGES_x86_64_mingw/cfengine-nova-3.22.0a-26402-x86_64.msi
@@ -55,7 +55,7 @@ jobs:
         working-directory: "c:/w/tests/acceptance/00_basics/01_compiler"
 
       - name: run all tests
-        run: './testall --bindir="c:/Program Files/Cfengine/bin"'
+        run: 'USER=`whoami` OSTYPE=msys ./testall --bindir="c:/Program Files/Cfengine/bin"'
         working-directory: "c:/w/tests/acceptance"
 
 
