@@ -63,11 +63,17 @@ jobs:
         run: 'cp -a "/c/Program Files/Cfengine" /d/a/'
 
       - name: run all tests
-        run: './testall --bindir="/d/a/Cfengine/bin"'
+        run: './testall --bindir="/d/a/Cfengine/bin" --printlog'
         working-directory: "tests/acceptance"
         env:
           USER: runneradmin
           OSTYPE: msys
+
+      - name: find all test.xml files
+        run: 'find -name test.xml'
+
+      - name: cat all results
+        run: 'cat test.xml'
 
 
       # - name: set env
