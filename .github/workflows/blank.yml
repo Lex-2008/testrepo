@@ -57,10 +57,10 @@ jobs:
         working-directory: "tests/acceptance/00_basics/01_compiler"
 
       - name: copy CFEngine to workdir
-        run: 'cp -a "/c/Program Files/Cfengine" .'
+        run: 'cp -a "/c/Program Files/Cfengine" /d/a/'
 
       - name: run all tests
-        run: './testall --bindir="$PWD/Cfengine/bin"'
+        run: './testall --bindir="/d/a/Cfengine/Cfengine/bin"'
         working-directory: "tests/acceptance"
         env:
           USER: runneradmin
