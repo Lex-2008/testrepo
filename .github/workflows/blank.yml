@@ -56,8 +56,11 @@ jobs:
         run: '"c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K'
         working-directory: "tests/acceptance/00_basics/01_compiler"
 
+      - name: copy CFEngine to workdir
+        run: cp "/c/Program Files/Cfengine" .
+
       - name: run all tests
-        run: './testall --bindir="c:/Program Files/Cfengine/bin"'
+        run: './testall --bindir="$PWD/Cfengine/bin"'
         working-directory: "tests/acceptance"
         env:
           USER: runneradmin
