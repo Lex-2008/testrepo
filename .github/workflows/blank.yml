@@ -46,8 +46,11 @@ jobs:
         run: msiexec /i cfengine-nova-3.22.0a-26402-x86_64.msi
         shell: pwsh
 
+      - name: ls
+        run: "ls -lah '/c/Program Files/Cfengine/bin/'"
+
       - name: run cf-agent
-        run: "'c:/Program Files/Cfengine/bin/cf-agent.exe' --version"
+        run: "'/c/Program Files/Cfengine/bin/cf-agent.exe' --version"
 
       - name: dummy cf-secret, idk
         run: "touch 'c:/Program Files/Cfengine/bin/cf-secret.exe' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret.exe'"
