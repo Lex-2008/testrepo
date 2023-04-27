@@ -10,7 +10,7 @@ on:
 defaults:
   run:
     shell: msys2 {0}
-    working-directory: c:\w
+    # working-directory: c:\w
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -31,13 +31,13 @@ jobs:
         with:
           repository: cfengine/core
 
-      - name: Move core here
-        run: mv "$GITHUB_WORKSPACE" /c/w
-        working-directory: 'c:'
+      # - name: Move core here
+      #   run: mv "$GITHUB_WORKSPACE" /c/w
+      #   working-directory: 'c:'
 
       # Runs a single command using the runners shell
-      - name: whoami
-        run: whoami
+      - name: info
+        run: "pwd; df -h .; export"
 
       - name: get CFEngine
         run: c:/msys64/usr/bin/wget.exe  http://buildcache.cfengine.com/packages/testing-pr/jenkins-master-nightly-pipeline-1263/PACKAGES_x86_64_mingw/cfengine-nova-3.22.0a-26402-x86_64.msi
@@ -54,11 +54,14 @@ jobs:
 
       - name: run one test
         run: '"c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K'
-        working-directory: "c:/w/tests/acceptance/00_basics/01_compiler"
+        working-directory: "tests/acceptance/00_basics/01_compiler"
 
       - name: run all tests
-        run: 'USER=`whoami` OSTYPE=msys ./testall --bindir="c:/Program Files/Cfengine/bin"'
-        working-directory: "c:/w/tests/acceptance"
+        run: './testall --bindir="c:/Program Files/Cfengine/bin"'
+        working-directory: "tests/acceptance"
+        env:
+          USER: runneradmin
+          OSTYPE: msys
 
 
       # - name: set env
