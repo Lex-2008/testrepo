@@ -73,11 +73,11 @@ jobs:
           USER: runneradmin
           OSTYPE: msys
 
-      - run: 'cat test.log'
+      - run: 'cat ./tests/acceptance/test.log'
         if: ${{ always() }}
 
       - name: find test.log
-        run: 'find -name test.xml'
+        run: 'find -name test.log'
         if: ${{ always() }}
 
 
