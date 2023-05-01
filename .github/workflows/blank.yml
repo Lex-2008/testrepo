@@ -26,6 +26,11 @@ jobs:
 
       - uses: msys2/setup-msys2@v2
 
+      - run: 'find / -name bin'
+      - run: 'find / -name sed'
+      - run: 'find / -name sed.exe'
+      - run: 'false'
+
       - name: Checkout Core
         uses: actions/checkout@v3
         with:
