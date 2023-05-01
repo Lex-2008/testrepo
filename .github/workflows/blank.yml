@@ -26,8 +26,8 @@ jobs:
 
       - uses: msys2/setup-msys2@v2
 
-      - run: 'find /c'
-      - run: 'find /d'
+      - run: 'find /c/msys64'
+      - run: 'ls -lah /c/tools'
       - run: 'false'
 
       - name: Checkout Core
