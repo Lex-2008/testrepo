@@ -71,6 +71,7 @@ jobs:
 
       - name: find all test.xml files
         run: 'find -name test.xml'
+        if: ${{ always() }}
 
       - name: cat all results
         run: 'cat test.xml'
