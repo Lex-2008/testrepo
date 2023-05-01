@@ -26,10 +26,9 @@ jobs:
 
       - uses: msys2/setup-msys2@v2
 
-      - run: 'ls -lah /'
-      - run: 'echo $PATH'
-      - run: 'find /c'
-      - run: 'find /d'
+      - run: 'echo $PATH | xargs -d: ls -lah'
+      - run: 'find /c -name bin'
+      - run: 'find /d -name bin'
       - run: 'false'
 
       - name: Checkout Core
