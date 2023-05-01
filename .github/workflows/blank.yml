@@ -76,8 +76,10 @@ jobs:
       - run: 'cat ./tests/acceptance/test.log'
         if: ${{ always() }}
 
-      - name: find test.log
-        run: 'find -name test.log'
+      - name: cat all test.log
+        # note that we actually use head -v to print filenames, too,
+        # with `-c -0` argument to print "all but last 0 characters"
+        run: 'find -name test.log | xargs head -v -c -0'
         if: ${{ always() }}
 
 
