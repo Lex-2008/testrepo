@@ -79,12 +79,12 @@ jobs:
       - name: copy CFEngine to workdir
         run: 'cp -a "/c/Program Files/Cfengine" /d/a/'
 
-      # - name: run all tests
-      #   run: './testall --bindir="/d/a/Cfengine/bin"'
-      #   working-directory: "tests/acceptance"
-      #   env:
-      #     USER: runneradmin
-      #     OSTYPE: msys
+      - name: run all tests
+        run: './testall --bindir="/d/a/Cfengine/bin"'
+        working-directory: "tests/acceptance"
+        env:
+          USER: runneradmin
+          OSTYPE: msys
 
       - run: 'cat ./tests/acceptance/test.log'
         if: ${{ always() }}
