@@ -47,14 +47,13 @@ jobs:
         run: "pacman --noconfirm -S diffutils util-linux"
         # util-linux for hexdump
 
-      - name: check diff
-        run: "ls -lah /usr/bin/"
+      - run: "ls -lah /c"
 
-      - name: check diff2
-        run: "ls -lah /c/msys64/usr/bin"
+      - run: "ls -lah /usr/bin/"
 
-      - name: find diff
-        run: "find /c/msys64 -name 'diff*'"
+      - run: "ls -lah /c/msys64/usr/bin"
+
+      - run: "find /c/Users -name 'diff*'"
 
       - name: get CFEngine
         run: c:/msys64/usr/bin/wget.exe  http://buildcache.cfengine.com/packages/testing-pr/jenkins-master-nightly-pipeline-1263/PACKAGES_x86_64_mingw/cfengine-nova-3.22.0a-26402-x86_64.msi
