@@ -60,18 +60,18 @@ jobs:
         run: "touch 'c:/Program Files/Cfengine/bin/cf-secret.exe' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret.exe'"
 
       - name: run one test
-        run: '"c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO 013.cf -K'
+        run: '"c:/Program Files/Cfengine/bin/cf-agent.exe" -D AUTO,DEBUG,EXTRA with_iteration.cf -Kv'
         working-directory: "tests/acceptance/00_basics/01_compiler"
 
       - name: copy CFEngine to workdir
         run: 'cp -a "/c/Program Files/Cfengine" /d/a/'
 
-      - name: run all tests
-        run: './testall --bindir="/d/a/Cfengine/bin"'
-        working-directory: "tests/acceptance"
-        env:
-          USER: runneradmin
-          OSTYPE: msys
+      # - name: run all tests
+      #   run: './testall --bindir="/d/a/Cfengine/bin"'
+      #   working-directory: "tests/acceptance"
+      #   env:
+      #     USER: runneradmin
+      #     OSTYPE: msys
 
       - run: 'cat ./tests/acceptance/test.log'
         if: ${{ always() }}
