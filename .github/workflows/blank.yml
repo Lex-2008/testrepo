@@ -50,6 +50,10 @@ jobs:
         run: msiexec /i cfengine-nova-3.22.0a-26402-x86_64.msi
         shell: pwsh
 
+      - name: install packages
+        run: "pacman -S diffutils util-linux"
+        # util-linux for hexdump
+
       - name: ls
         run: "ls -lah '/c/Program Files/Cfengine/bin/'"
 
