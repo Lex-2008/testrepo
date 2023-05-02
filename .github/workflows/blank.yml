@@ -51,7 +51,7 @@ jobs:
         shell: pwsh
 
       - name: install packages
-        run: "pacman -S diffutils util-linux"
+        run: "pacman --noconfirm -S diffutils util-linux"
         # util-linux for hexdump
 
       - name: ls
