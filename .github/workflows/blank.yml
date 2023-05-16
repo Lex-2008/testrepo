@@ -35,6 +35,9 @@ jobs:
       # - run: 'ls -lah /c/tools'
       # - run: 'false'
 
+      - name: Prepare git
+        run: git config --global core.autocrlf false
+
       - name: Checkout Core
         uses: actions/checkout@v3
         with:
