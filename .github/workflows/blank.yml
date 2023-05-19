@@ -60,10 +60,10 @@ jobs:
       - run: "find /d -name 'diff*'"
 
       - name: get CFEngine
-        run: c:/msys64/usr/bin/wget.exe  http://buildcache.cfengine.com/packages/testing-pr/jenkins-master-nightly-pipeline-1263/PACKAGES_x86_64_mingw/cfengine-nova-3.22.0a-26402-x86_64.msi
+        run: c:/msys64/usr/bin/wget.exe https://cfengine-package-repos.s3.amazonaws.com/enterprise/Enterprise-3.21.1/agent/windows_x86_64/cfengine-nova-3.21.1-1-x86_64.msi
 
       - name: install CFEngine
-        run: msiexec /i cfengine-nova-3.22.0a-26402-x86_64.msi
+        run: msiexec /i cfengine-nova-3.21.1-1-x86_64.msi
         shell: pwsh
 
       - name: ls
