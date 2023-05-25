@@ -43,6 +43,9 @@ jobs:
         with:
           repository: Lex-2008/core
 
+      - name: fix crlf
+        run: "find -delete && /C/Program\\ Files/Git/bin/git checkout ."
+
       # - name: Move core here
       #   run: mv "$GITHUB_WORKSPACE" /c/w
       #   working-directory: 'c:'
