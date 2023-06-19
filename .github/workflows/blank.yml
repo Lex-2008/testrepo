@@ -64,7 +64,7 @@ jobs:
       - run: "find /d -name 'diff*'"
 
       - name: get CFEngine
-        run: c:/msys64/usr/bin/wget.exe https://cfengine-package-repos.s3.amazonaws.com/enterprise/Enterprise-3.22.0/agent/windows_x86_64/cfengine-nova-3.22.0-1-x86_64.msi
+        run: /usr/bin/wget.exe -vvv https://cfengine-package-repos.s3.amazonaws.com/enterprise/Enterprise-3.22.0/agent/windows_x86_64/cfengine-nova-3.22.0-1-x86_64.msi
 
       - name: install CFEngine
         run: msiexec /i cfengine-nova-3.22.0-1-x86_64.msi
