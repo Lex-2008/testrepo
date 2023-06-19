@@ -74,7 +74,7 @@ jobs:
 
       - run: "ls -lah /c/Program*"
 
-        run: "ls -lah '/c/Program Files/Cfengine/bin/'"
+      - run: "ls -lah '/c/Program Files/Cfengine/bin/'"
 
       - name: run cf-agent
         run: "'/c/Program Files/Cfengine/bin/cf-agent.exe' --version"
