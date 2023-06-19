@@ -70,7 +70,11 @@ jobs:
         run: msiexec /i cfengine-nova-3.22.0-1-x86_64.msi
         shell: pwsh
 
+      - run: "sleep 10"
+
       - run: "ls -lah /c/Program*"
+
+      - run: false
 
       - run: "find /c/Program* -name cf-agent.exe"
 
