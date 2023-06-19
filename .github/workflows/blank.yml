@@ -74,11 +74,10 @@ jobs:
 
       - run: "ls -lah /c/Program*"
 
-      - run: false
+        run: "ls -lah '/c/Program Files/Cfengine/bin/'"
 
-      - run: "find /c/Program* -name cf-agent.exe"
-
-      - run: "'/c/Program Files/Cfengine/bin/cf-agent.exe' --version"
+      - name: run cf-agent
+        run: "'/c/Program Files/Cfengine/bin/cf-agent.exe' --version"
 
       - name: dummy cf-secret, idk
         run: "touch 'c:/Program Files/Cfengine/bin/cf-secret.exe' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret.exe'"
