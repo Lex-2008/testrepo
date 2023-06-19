@@ -70,11 +70,11 @@ jobs:
         run: msiexec /i cfengine-nova-3.22.0-1-x86_64.msi
         shell: pwsh
 
-      - name: ls
-        run: "ls -lah '/c/Program Files/Cfengine/bin/'"
+      - run: "ls -lah /c/Program*"
 
-      - name: run cf-agent
-        run: "'/c/Program Files/Cfengine/bin/cf-agent.exe' --version"
+      - run: "find /c/Program* -name cf-agent.exe"
+
+      - run: "'/c/Program Files/Cfengine/bin/cf-agent.exe' --version"
 
       - name: dummy cf-secret, idk
         run: "touch 'c:/Program Files/Cfengine/bin/cf-secret.exe' && chmod a+x 'c:/Program Files/Cfengine/bin/cf-secret.exe'"
