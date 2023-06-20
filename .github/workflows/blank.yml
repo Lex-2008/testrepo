@@ -43,9 +43,9 @@ jobs:
         with:
           repository: Lex-2008/core
 
-      - name: fix crlf
-        # note that "rm -rf *" excludes ".git", which is needed for "git checkout"
-        run: "rm -rf * && /C/Program\\ Files/Git/bin/git checkout ."
+      # - name: fix crlf
+      #   # note that "rm -rf *" excludes ".git", which is needed for "git checkout"
+      #   run: "rm -rf * && /C/Program\\ Files/Git/bin/git checkout ."
 
       # - name: Move core here
       #   run: mv "$GITHUB_WORKSPACE" /c/w
