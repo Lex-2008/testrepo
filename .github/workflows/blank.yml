@@ -55,7 +55,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - run: pip install cf-remote
+      - run: pipx install cf-remote
 
       - run: cf-remote install --clients localhost
 
