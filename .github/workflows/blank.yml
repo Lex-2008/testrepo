@@ -51,6 +51,14 @@ jobs:
       #   run: mv "$GITHUB_WORKSPACE" /c/w
       #   working-directory: 'c:'
 
+      - uses: actions/setup-python@v4
+        with:
+          cache: 'pip' # caching pip dependencies
+
+      - run: pip3 install cf-remote
+
+      - run: cf-remote install --clients localhost
+
       # Runs a single command using the runners shell
       - name: info
         run: "pwd; df -h .; export"
@@ -63,12 +71,12 @@ jobs:
 
       - run: "find /d -name 'diff*'"
 
-      - name: get CFEngine
-        run: /usr/bin/wget.exe -vvv https://cfengine-package-repos.s3.amazonaws.com/enterprise/Enterprise-3.22.0/agent/windows_x86_64/cfengine-nova-3.22.0-1-x86_64.msi
+      # - name: get CFEngine
+      #   run: /usr/bin/wget.exe -vvv https://cfengine-package-repos.s3.amazonaws.com/enterprise/Enterprise-3.22.0/agent/windows_x86_64/cfengine-nova-3.22.0-1-x86_64.msi
 
-      - name: install CFEngine
-        run: msiexec /i cfengine-nova-3.22.0-1-x86_64.msi
-        shell: pwsh
+      # - name: install CFEngine
+      #   run: msiexec /i cfengine-nova-3.22.0-1-x86_64.msi
+      #   shell: pwsh
 
       - run: "sleep 10"
 
