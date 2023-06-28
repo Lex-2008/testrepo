@@ -78,7 +78,7 @@ jobs:
         run: cf-remote --version master download x86 msi
       #   run: /usr/bin/wget.exe -vvv https://cfengine-package-repos.s3.amazonaws.com/enterprise/Enterprise-3.22.0/agent/windows_x86_64/cfengine-nova-3.22.0-1-x86_64.msi
 
-      - run: "mv .cfengine/cf-remote/packages/*.msi cfengine.msi"
+      - run: "mv $HOME/.cfengine/cf-remote/packages/*.msi cfengine.msi"
 
       - name: install CFEngine
         run: msiexec /i cfengine.msi
