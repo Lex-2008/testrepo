@@ -59,6 +59,7 @@ jobs:
         shell: pwsh
 
       - run: cf-remote install --clients localhost
+        shell: pwsh
 
       # Runs a single command using the runners shell
       - name: info
