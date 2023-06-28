@@ -51,11 +51,12 @@ jobs:
       #   run: mv "$GITHUB_WORKSPACE" /c/w
       #   working-directory: 'c:'
 
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.11'
 
-      - run: pipx install cf-remote
+      - run: pip install cf-remote
+        shell: pwsh
 
       - run: cf-remote install --clients localhost
 
