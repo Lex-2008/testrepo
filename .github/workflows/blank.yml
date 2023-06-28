@@ -29,6 +29,7 @@ jobs:
           install: >-
             diffutils
             util-linux
+            python-pip
         # util-linux for hexdump
 
       # - run: 'find /c/msys64'
@@ -56,10 +57,10 @@ jobs:
       #     python-version: '3.11'
 
       - run: pip install cf-remote
-        shell: pwsh
+        # shell: pwsh
 
       - run: cf-remote install --clients localhost
-        shell: pwsh
+        # shell: pwsh
 
       # Runs a single command using the runners shell
       - name: info
