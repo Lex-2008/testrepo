@@ -17,7 +17,7 @@ jobs:
 
       - name: find cmake
         shell: bash
-        run: "find / -name Support.cmake 2>/dev/null"
+        run: "find / -name '*.cmake' 2>/dev/null"
 
       - name: default python3
         shell: bash
