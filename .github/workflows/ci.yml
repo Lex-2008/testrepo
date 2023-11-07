@@ -7,6 +7,10 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: default python3
+        shell: bash
+        run: which python3
+
       - name: python3 venv
         shell: bash
         run: |
@@ -16,3 +20,10 @@ jobs:
 
       - name: cmake find Python3
         run: cmake -S . -B test
+
+      - name: cmake-found python3 venv
+        shell: bash
+        run: |
+          C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test2-venv
+          find test2-venv
+          test2-venv/Scripts/python -c 'print(12)'
