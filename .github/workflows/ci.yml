@@ -21,9 +21,17 @@ jobs:
       - name: cmake find Python3
         run: cmake -S . -B test
 
-      - name: cmake-found python3 venv
+      - name: cmake-found python3 venv bash
         shell: bash
+        run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test2-venv
+
+      - name: cmake-found python3 venv
+        if: ${{ !cancelled() }}
+        run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test2-venv
+
+      - name: find
+        shell: bash
+        if: ${{ !cancelled() }}
         run: |
-          C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test2-venv
           find test2-venv
           test2-venv/Scripts/python -c 'print(12)'
