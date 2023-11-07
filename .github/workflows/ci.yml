@@ -9,11 +9,11 @@ jobs:
 
       - name: path
         shell: bash
-        run: echo "$PATH" | tr : '\n'
+        run: "echo $PATH | tr : '\\n'"
 
       - name: ls path
         shell: bash
-        run: echo $PATH | xargs -d: ls -la
+        run: "echo $PATH | xargs -d: ls -la"
 
       - name: default python3
         shell: bash
