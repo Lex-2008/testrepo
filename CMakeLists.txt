@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
+project(test)
 
 find_package(Python3 COMPONENTS Interpreter REQUIRED QUIET)
 
