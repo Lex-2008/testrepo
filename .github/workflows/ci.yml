@@ -1,0 +1,16 @@
+on: push
+
+jobs:
+  test:
+    runs-on: windows-2022
+    steps:
+
+      - name: python3 venv
+        shell: bash
+        run: |
+          python3 -m venv test-venv
+          find test-venv
+          test-venv/Scripts/python -c 'print(12)'
+
+      - name: cmake find Python3
+        run: cmake -S . -B test
