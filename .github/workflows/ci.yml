@@ -9,7 +9,7 @@ jobs:
 
       - name: path
         shell: bash
-        run: "echo $PATH | tr : '\\n'"
+        run: "echo $PATH | tr : '\\n' || true"
 
       - name: ls path
         shell: bash
