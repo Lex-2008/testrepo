@@ -5,6 +5,8 @@ jobs:
     runs-on: windows-2022
     steps:
 
+      - uses: actions/checkout@v4
+
       - name: python3 venv
         shell: bash
         run: |
