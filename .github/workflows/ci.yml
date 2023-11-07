@@ -15,6 +15,10 @@ jobs:
         shell: bash
         run: "echo $PATH | xargs -d: ls -la || true"
 
+      - name: find cmake
+        shell: bash
+        run: "find / -name Support.cmake 2>/dev/null"
+
       - name: default python3
         shell: bash
         run: which python3
