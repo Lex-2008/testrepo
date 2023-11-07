@@ -11,13 +11,22 @@ jobs:
         shell: bash
         run: "echo $PATH | tr : '\\n'"
 
-      - name: ls path
-        shell: bash
-        run: "echo $PATH | xargs -d: ls -la || true"
+      # - name: ls path
+      #   shell: bash
+      #   run: "echo $PATH | xargs -d: ls -la || true"
 
-      - name: find cmake
+      - name: ls /
         shell: bash
-        run: "find / -name '*.cmake' 2>/dev/null"
+        run: "ls -la /"
+
+      - name: find cmake on c
+        shell: bash
+        run: "find /c -iname '*.cmake' 2>/dev/null"
+
+      - name: find cmake on d
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: "find /d -iname '*.cmake' 2>/dev/null"
 
       - name: default python3
         shell: bash
