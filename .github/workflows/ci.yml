@@ -15,51 +15,57 @@ jobs:
       #   shell: bash
       #   run: "echo $PATH | xargs -d: ls -la || true"
 
-      - name: ls /
-        shell: bash
-        run: "ls -la /"
+      # - name: ls /
+      #   shell: bash
+      #   run: "ls -la /"
 
-      - name: find cmake on c
-        shell: bash
-        run: "find /c -iname '*.cmake' 2>/dev/null"
+      # - name: find cmake on c
+      #   shell: bash
+      #   run: "find /c -iname '*.cmake' 2>/dev/null"
 
-      - name: find cmake on d
-        if: ${{ !cancelled() }}
-        shell: bash
-        run: "find /d -iname '*.cmake' 2>/dev/null"
+      # - name: find cmake on d
+      #   if: ${{ !cancelled() }}
+      #   shell: bash
+      #   run: "find /d -iname '*.cmake' 2>/dev/null"
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Support.cmake
+          path: c:/Program Files/CMake/share/cmake-3.27/Modules/FindPython/Support.cmake
 
       - name: default python3
         shell: bash
         run: which python3
 
-      - name: python3 venv
-        shell: bash
-        run: |
-          python3 -m venv test-venv
-          find test-venv
-          test-venv/Scripts/python -c 'print(12)'
+      # - name: python3 venv
+      #   shell: bash
+      #   run: |
+      #     python3 -m venv test-venv
+      #     find test-venv
+      #     test-venv/Scripts/python -c 'print(12)'
 
       - name: cmake find Python3
         run: cmake -S . -B test
 
-      - name: cmake-found python3 venv bash
-        shell: bash
-        run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test2-venv
-
-      - name: cmake-found python3 venv
-        if: ${{ !cancelled() }}
-        run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test3-venv
-
-      - name: find test2
-        shell: bash
-        if: ${{ !cancelled() }}
-        run: |
-          find test2-venv
-          test2-venv/Scripts/python -c 'print(12)'
-
-      - name: find test3
-        shell: bash
-        if: ${{ !cancelled() }}
-        run: |
-          find test3-venv
-          test3-venv/Scripts/python -c 'print(12)'
+      # - name: cmake-found python3 venv bash
+      #   shell: bash
+      #   run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test2-venv
+      #
+      # - name: cmake-found python3 venv
+      #   if: ${{ !cancelled() }}
+      #   run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test3-venv
+      #
+      # - name: find test2
+      #   shell: bash
+      #   if: ${{ !cancelled() }}
+      #   run: |
+      #     find test2-venv
+      #     test2-venv/Scripts/python -c 'print(12)'
+      #
+      # - name: find test3
+      #   shell: bash
+      #   if: ${{ !cancelled() }}
+      #   run: |
+      #     find test3-venv
+      #     test3-venv/Scripts/python -c 'print(12)'
