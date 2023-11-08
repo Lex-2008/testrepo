@@ -1865,6 +1865,16 @@ if ("Interpreter" IN_LIST ${_PYTHON_PREFIX}_FIND_COMPONENTS)
                         VALIDATOR _python_validate_find_interpreter)
           if (_${_PYTHON_PREFIX}_EXECUTABLE)
             message("found ${_${_PYTHON_PREFIX}_EXECUTABLE} on line 1867")
+            message("find_program (_${_PYTHON_PREFIX}_EXECUTABLE
+                        NAMES ${_${_PYTHON_PREFIX}_NAMES}
+                        NAMES_PER_DIR
+                        HINTS ${_${_PYTHON_PREFIX}_HINTS}
+                        PATHS ${_${_PYTHON_PREFIX}_REGISTRY_PATHS}
+                        PATH_SUFFIXES ${_${_PYTHON_PREFIX}_PATH_SUFFIXES}
+                        ${_${_PYTHON_PREFIX}_REGISTRY_VIEW}
+                        NO_SYSTEM_ENVIRONMENT_PATH
+                        NO_CMAKE_SYSTEM_PATH
+                        VALIDATOR _python_validate_find_interpreter)")
             break()
           endif()
         endif()
