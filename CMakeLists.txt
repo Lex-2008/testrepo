@@ -10,9 +10,9 @@ endfunction()
 
 find_program(my_python NAMES python3 VALIDATOR my_check)
 
-# if("$ENV{CI}")
+if("$ENV{CI}")
   set(Python3_FIND_REGISTRY NEVER)
-# endif()
+endif()
 find_package(Python3 COMPONENTS Interpreter REQUIRED QUIET)
 
 message("cmake found Python: ${Python3_EXECUTABLE}")
