@@ -1864,6 +1864,7 @@ if ("Interpreter" IN_LIST ${_PYTHON_PREFIX}_FIND_COMPONENTS)
                         NO_CMAKE_SYSTEM_PATH
                         VALIDATOR _python_validate_find_interpreter)
           if (_${_PYTHON_PREFIX}_EXECUTABLE)
+            message("found ${_${_PYTHON_PREFIX}_EXECUTABLE} on line 1867")
             break()
           endif()
         endif()
