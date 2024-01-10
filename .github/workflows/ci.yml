@@ -2,14 +2,20 @@ on: push
 
 jobs:
   test:
-    runs-on: windows-2022
+    runs-on: ubuntu-20.04
     steps:
 
       - uses: actions/checkout@v4
 
-      - name: patch the file
-        shell: bash
-        run: cp Support.cmake '/c/Program Files/CMake/share/cmake-3.27/Modules/FindPython/'
+      - run: |
+        ls -lah "${ANDROID_HOME}/tools/bin/"
+        find "${ANDROID_HOME}/tools/bin/" -name sdkmanager
+        sudo "${ANDROID_HOME}/tools/bin/sdkmanager" --install "ndk;$NDK_VERSION"
+
+
+      # - name: patch the file
+      #   shell: bash
+      #   run: cp Support.cmake '/c/Program Files/CMake/share/cmake-3.27/Modules/FindPython/'
 
       # - name: path
       #   shell: bash
@@ -49,8 +55,8 @@ jobs:
       #     find test-venv
       #     test-venv/Scripts/python -c 'print(12)'
 
-      - name: cmake find Python3
-        run: cmake -S . -B test
+      # - name: cmake find Python3
+      #   run: cmake -S . -B test
 
       # - name: cmake-found python3 venv bash
       #   shell: bash
