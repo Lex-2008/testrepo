@@ -9,7 +9,12 @@ jobs:
 
       - run: |
           find "${ANDROID_HOME}" -name sdkmanager
-          sudo "${ANDROID_HOME}/tools/bin/sdkmanager" --install "ndk;$NDK_VERSION"
+          sudo "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --install "ndk;$NDK_VERSION"
+
+
+          # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
+          # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
+
 
 
       # - name: patch the file
