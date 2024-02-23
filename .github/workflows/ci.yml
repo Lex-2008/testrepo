@@ -37,7 +37,8 @@ jobs:
             print(f"output:\n{matrix=}")
 
   test:
-    uses: ./.github/workflows/${{ matrix.filename }}
+    # NOTE: cant use expressions here
+    uses: ./.github/workflows/first.yml
     steps: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
 
       # - run: |
