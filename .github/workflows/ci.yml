@@ -1,23 +1,39 @@
 on: push
 
 jobs:
+
+  set-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: set-matrix
+        shell: python
+        run: |
+          import os
+  
+          matrix=[{'run':'ls -la /'}]
+    
+          with open(os.environ["GITHUB_OUTPUT"], 'a') as output:
+              output.write(f"{matrix=}")
+            print(f"output:\n{matrix=}")
+
   test:
     runs-on: ubuntu-20.04
-    steps:
+    steps: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
 
-      - uses: actions/checkout@v4
-
-      - run: |
-          echo "$ANDROID_HOME"
-          echo "$ANDROID_SDK_ROOT"
-          # find "${ANDROID_HOME}" -name sdkmanager
-          sudo "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" --install "ndk;25.2.9519653"
+      # - run: |
+      #     echo "$ANDROID_HOME"
+      #     echo "$ANDROID_SDK_ROOT"
+      #     # find "${ANDROID_HOME}" -name sdkmanager
+      #     sudo "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" --install "ndk;25.2.9519653"
 
 
           # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
 
 
+      # - uses: actions/checkout@v4
 
       # - name: patch the file
       #   shell: bash
