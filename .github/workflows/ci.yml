@@ -11,15 +11,33 @@ jobs:
         shell: python
         run: |
           import os
-  
+
           matrix=[{'run':'ls -la /'}]
+
+          matrix={'include':[]}
+          matrix['include'].append({ 'name':'first', 'os': 'ubuntu-latest', 'filename': 'first.yml'})
+          matrix['include'].append({ 'name':'second', 'os': 'ubuntu-latest', 'filename': 'second.yml'})
+
+          with open('./.github/workflows/first.yml', 'a') as output:
+              output.write("
+on:
+  workflow_call:
+
+jobs:
+  print-username:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print the input name to STDOUT
+        run: echo hello world
+")
     
           with open(os.environ["GITHUB_OUTPUT"], 'a') as output:
               output.write(f"{matrix=}")
             print(f"output:\n{matrix=}")
 
   test:
-    runs-on: ubuntu-20.04
+    uses: ./.github/workflows/${{ matrix.filename }}
     steps: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
 
       # - run: |
