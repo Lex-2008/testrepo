@@ -39,7 +39,6 @@ jobs:
   test:
     # NOTE: cant use expressions here
     uses: ./.github/workflows/first.yml
-    steps: ${{ fromJSON(needs.set-matrix.outputs.matrix) }}
 
       # - run: |
       #     echo "$ANDROID_HOME"
