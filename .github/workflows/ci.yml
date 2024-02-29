@@ -42,9 +42,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - run:
       - id: id
         run: echo key=false >>$GITHUB_OUTPUT
+      - run: ${{ steps.id.outputs.no_such_key }}
       - run: echo ${{ steps.id.outputs.key }}
       - if: steps.id.outputs.key
         run: echo nooo
