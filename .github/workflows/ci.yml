@@ -44,7 +44,7 @@ jobs:
     steps:
       - id: id
         run: echo key=False $GITHUB_OUTPUT
-      - echo ${{ steps.id.outputs.key }}
+      - echo "${{ steps.id.outputs.key }}"
       - if: steps.id.outputs.key
         run: echo nooo
       - if: ${{ steps.id.outputs.key }}
