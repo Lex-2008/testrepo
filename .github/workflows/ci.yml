@@ -2,43 +2,61 @@ on: push
 
 jobs:
 
-  set-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: set-matrix
-        shell: python
-        run: |
-          import os
-
-          matrix=[{'run':'ls -la /'}]
-
-          matrix={'include':[]}
-          matrix['include'].append({ 'name':'first', 'os': 'ubuntu-latest', 'filename': 'first.yml'})
-          matrix['include'].append({ 'name':'second', 'os': 'ubuntu-latest', 'filename': 'second.yml'})
-
-          with open('./.github/workflows/first.yml', 'a') as output:
-              output.write("
-          on:
-            workflow_call:
-
-          jobs:
-            print-username:
-              runs-on: ubuntu-latest
-
-              steps:
-                - name: Print the input name to STDOUT
-                  run: echo hello world
-          ")
-    
-          with open(os.environ["GITHUB_OUTPUT"], 'a') as output:
-              output.write(f"{matrix=}")
-            print(f"output:\n{matrix=}")
+  # set-matrix:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     matrix: ${{ steps.set-matrix.outputs.matrix }}
+  #   steps:
+  #     - name: set-matrix
+  #       shell: python
+  #       run: |
+  #         import os
+  #
+  #         matrix=[{'run':'ls -la /'}]
+  #
+  #         matrix={'include':[]}
+  #         matrix['include'].append({ 'name':'first', 'os': 'ubuntu-latest', 'filename': 'first.yml'})
+  #         matrix['include'].append({ 'name':'second', 'os': 'ubuntu-latest', 'filename': 'second.yml'})
+  #
+  #         with open('./.github/workflows/first.yml', 'a') as output:
+  #             output.write("
+  #         on:
+  #           workflow_call:
+  #
+  #         jobs:
+  #           print-username:
+  #             runs-on: ubuntu-latest
+  #
+  #             steps:
+  #               - name: Print the input name to STDOUT
+  #                 run: echo hello world
+  #         ")
+  #   
+  #         with open(os.environ["GITHUB_OUTPUT"], 'a') as output:
+  #             output.write(f"{matrix=}")
+  #           print(f"output:\n{matrix=}")
 
   test:
     # NOTE: cant use expressions here
-    uses: ./.github/workflows/first.yml
+    # uses: ./.github/workflows/first.yml
+
+    runs-on: ubuntu-latest
+    steps:
+      - id: id
+        run: echo key=False $GITHUB_OUTPUT
+      - echo ${{ steps.id.outputs.key }}
+      - if: steps.id.outputs.key
+        run: echo nooo
+      - if: ${{ steps.id.outputs.key }}
+        run: echo nooo
+      - if: ${{ steps.id.outputs.key == 'True' }}
+        run: echo nooo
+      - if: steps.id.outputs.key == 'True'
+        run: echo nooo
+      - if: ${{ fromJSON(steps.id.outputs.key) }}
+        run: echo nooo
+      - if: fromJSON(steps.id.outputs.key)
+        run: echo nooo
 
       # - run: |
       #     echo "$ANDROID_HOME"
