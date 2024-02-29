@@ -42,6 +42,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - run:
       - id: id
         run: echo key=false >>$GITHUB_OUTPUT
       - run: echo ${{ steps.id.outputs.key }}
