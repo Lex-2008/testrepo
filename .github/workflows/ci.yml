@@ -42,22 +42,23 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - id: id
-        run: echo key=false >>$GITHUB_OUTPUT
-      - run: ${{ steps.id.outputs.no_such_key }}
-      - run: echo ${{ steps.id.outputs.key }}
-      - if: steps.id.outputs.key
-        run: echo nooo
-      - if: ${{ steps.id.outputs.key }}
-        run: echo nooo
-      - if: ${{ steps.id.outputs.key == 'True' }}
-        run: echo nooo
-      - if: steps.id.outputs.key == 'True'
-        run: echo nooo
-      - if: ${{ fromJSON(steps.id.outputs.key) }}
-        run: echo nooo
-      - if: fromJSON(steps.id.outputs.key)
-        run: echo nooo
+
+      # - id: id
+      #   run: echo key=false >>$GITHUB_OUTPUT
+      # - run: ${{ steps.id.outputs.no_such_key }}
+      # - run: echo ${{ steps.id.outputs.key }}
+      # - if: steps.id.outputs.key
+      #   run: echo nooo
+      # - if: ${{ steps.id.outputs.key }}
+      #   run: echo nooo
+      # - if: ${{ steps.id.outputs.key == 'True' }}
+      #   run: echo nooo
+      # - if: steps.id.outputs.key == 'True'
+      #   run: echo nooo
+      # - if: ${{ fromJSON(steps.id.outputs.key) }}
+      #   run: echo nooo
+      # - if: fromJSON(steps.id.outputs.key)
+      #   run: echo nooo
 
       # - run: |
       #     echo "$ANDROID_HOME"
@@ -70,7 +71,7 @@ jobs:
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
 
 
-      # - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       # - name: patch the file
       #   shell: bash
@@ -103,9 +104,9 @@ jobs:
       #     name: Support.cmake
       #     path: c:/Program Files/CMake/share/cmake-3.27/Modules/FindPython/Support.cmake
 
-      # - name: default python3
-      #   shell: bash
-      #   run: which python3
+      - name: default python3
+        shell: bash
+        run: which python3
 
       # - name: python3 venv
       #   shell: bash
@@ -114,8 +115,8 @@ jobs:
       #     find test-venv
       #     test-venv/Scripts/python -c 'print(12)'
 
-      # - name: cmake find Python3
-      #   run: cmake -S . -B test
+      - name: cmake find Python3
+        run: cmake -S . -B test
 
       # - name: cmake-found python3 venv bash
       #   shell: bash
