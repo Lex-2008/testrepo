@@ -10,9 +10,9 @@ project(test)
 
 # find_program(my_python NAMES python3 VALIDATOR my_check)
 
-# if("$ENV{CI}")
-#   set(Python3_FIND_REGISTRY NEVER)
-# endif()
+if("$ENV{CI}")
+  set(Python3_FIND_REGISTRY NEVER)
+endif()
 
 set(CMAKE_FIND_DEBUG_MODE TRUE)
 find_package(Python3 COMPONENTS Interpreter REQUIRED QUIET)
