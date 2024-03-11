@@ -14,8 +14,8 @@ if("$ENV{CI}")
   set(Python3_FIND_REGISTRY NEVER)
 endif()
 
-set(CMAKE_FIND_DEBUG_MODE TRUE)
+# set(CMAKE_FIND_DEBUG_MODE TRUE)
 find_package(Python3 COMPONENTS Interpreter REQUIRED QUIET)
-set(CMAKE_FIND_DEBUG_MODE FALSE)
+# set(CMAKE_FIND_DEBUG_MODE FALSE)
 
 message("cmake found Python: ${Python3_EXECUTABLE}")
