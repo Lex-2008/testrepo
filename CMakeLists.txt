@@ -19,3 +19,8 @@ find_package(Python3 COMPONENTS Interpreter REQUIRED QUIET)
 # set(CMAKE_FIND_DEBUG_MODE FALSE)
 
 message("cmake found Python: ${Python3_EXECUTABLE}")
+
+if (NOT Python3_FOUND)
+  message(FATAL_ERROR "Missing system python3, please install python3.")
+endif()
+
