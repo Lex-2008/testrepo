@@ -148,3 +148,9 @@ jobs:
       #   run: |
       #     find test3-venv
       #     test3-venv/Scripts/python -c 'print(12)'
+
+      - name: Dump Windows vcpkg logs
+        if: failure()
+        shell: bash
+        run: find "c:/vcpkg/buildtrees" -name '*.log' -exec echo "::group::{}" \; -exec cat {} \;
+
