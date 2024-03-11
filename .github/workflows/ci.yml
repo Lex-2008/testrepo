@@ -119,6 +119,8 @@ jobs:
       #   run: cmake -S . -B test
 
       - name: install port
+        env:
+          VCPKG_KEEP_ENV_VARS: PATH
         run: vcpkg install vcpkg-sample-library --overlay-ports=port
 
       - name: cmake HARD find Python3
