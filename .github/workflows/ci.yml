@@ -114,15 +114,23 @@ jobs:
 
       - name: default bash ssh
         shell: bash
-        run: which git
+        run: which ssh
 
       - name: default powershell ssh
         shell: powershell
         run: Get-Command ssh
 
-      - name: export
-        shell: bash
-        run: export
+      - name: powershell git's own ssh
+        shell: powershell
+        run: Get-ChildItem "C:\Program Files\Git\bin"
+
+      - name: powershell git's own ssh's known_hosts
+        shell: powershell
+        run: Get-Content "C:\Program Files\Git\etc\ssh\ssh_known_hosts"
+
+      # - name: export
+      #   shell: bash
+      #   run: export
 
 
       # - name: python3 venv
@@ -139,21 +147,9 @@ jobs:
           choco install git.portable --version=2.46.2 --force --no-progress --limit-output
           Add-Content -Path "$env:GITHUB_PATH" -Value "C:/tools/git/bin"
 
-      - name: new bash git
-        shell: bash
-        run: which git
-
       - name: new powershell git
         shell: powershell
         run: Get-Command git
-
-      - name: new bash ssh
-        shell: bash
-        run: which git
-
-      - name: new powershell ssh
-        shell: powershell
-        run: Get-Command ssh
 
       # - name: install port
       #   env:
