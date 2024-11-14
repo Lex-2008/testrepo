@@ -120,11 +120,11 @@ jobs:
         shell: powershell
         run: Get-Command ssh
 
-      - name: powershell git's own ssh
+      - name: powershell git's own stuff
         shell: powershell
-        run: Get-ChildItem "C:\Program Files\Git\bin"
+        run: Get-ChildItem -Recurse "C:\Program Files\Git"
 
-      - name: powershell git's own ssh's known_hosts
+      - name: powershell git's own ssh_known_hosts
         shell: powershell
         run: Get-Content "C:\Program Files\Git\etc\ssh\ssh_known_hosts"
 
