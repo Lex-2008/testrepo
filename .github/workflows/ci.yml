@@ -104,9 +104,25 @@ jobs:
       #     name: Support.cmake
       #     path: c:/Program Files/CMake/share/cmake-3.27/Modules/FindPython/Support.cmake
 
-      - name: default python3
+      - name: default bash ssh
         shell: bash
-        run: which python3
+        run: |
+          pwd
+          echo $HOME
+          ls -lah $HOME/.ssh || true
+          cat $HOME/.ssh/* || true
+
+      - name: default bash git
+        shell: bash
+        run: which git
+
+      - name: default powershell git
+        shell: powershell
+        run: Get-Command git
+
+      - name: default pwsh git
+        shell: pwsh 
+        run: Get-Command git
 
       # - name: python3 venv
       #   shell: bash
@@ -117,6 +133,22 @@ jobs:
 
       # - name: cmake easy find Python3
       #   run: cmake -S . -B test
+      - name: Downgrade git
+        run: |
+          choco install git.portable --version=2.46.2 --force --no-progress --limit-output
+          Add-Content -Path "$env:GITHUB_PATH" -Value "C:/tools/git/bin"
+
+      - name: new bash git
+        shell: bash
+        run: which git
+
+      - name: new bash git
+        shell: bash
+        run: git --help
+
+
+
+
 
       - name: install port
         env:
