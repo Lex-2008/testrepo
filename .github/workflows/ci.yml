@@ -128,6 +128,13 @@ jobs:
         shell: powershell
         run: Get-Content "C:\Program Files\Git\etc\ssh\ssh_known_hosts"
 
+      - shell: bash
+        run: |
+          mkdir -p ~/.ssh
+          ls -lah "/c/Program Files/Git/etc/ssh/ssh_known_hosts"
+          # note: cp -T: treat DEST as a normal file, not a directory
+          cp -T "/c/Program Files/Git/etc/ssh/ssh_known_hosts" ~/.ssh/known_hosts
+
       # - name: export
       #   shell: bash
       #   run: export
