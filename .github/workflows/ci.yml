@@ -154,6 +154,7 @@ jobs:
           # use RSA to verify gohub.com hostkey, because above file doesn't have ed25519
           echo "Host github.com" >>~/.ssh/config
           echo "HostKeyAlgorithms=ssh-rsa" >>~/.ssh/config
+          chmod 400 ~/.ssh/config
 
       - name: new powershell git
         shell: powershell
