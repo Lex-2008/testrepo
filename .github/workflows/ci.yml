@@ -128,13 +128,6 @@ jobs:
         shell: powershell
         run: Get-Content "C:\Program Files\Git\etc\ssh\ssh_known_hosts"
 
-      - shell: bash
-        run: |
-          mkdir -p ~/.ssh
-          ls -lah "/c/Program Files/Git/etc/ssh/ssh_known_hosts"
-          # note: cp -T: treat DEST as a normal file, not a directory
-          cp -T "/c/Program Files/Git/etc/ssh/ssh_known_hosts" ~/.ssh/known_hosts
-
       # - name: export
       #   shell: bash
       #   run: export
@@ -164,6 +157,7 @@ jobs:
         run: Get-Command git
 
       - name: clone smth
+        shell: bash
         run: |
           "C:\tools\git\mingw64\bin\git.exe" "--git-dir=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git\.git" "--work-tree=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git" -c core.autocrlf=false fetch --update-shallow -- git@github.com:reMarkable/vcpkg.git HEAD
 
