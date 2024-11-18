@@ -71,7 +71,7 @@ jobs:
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
 
 
-      - uses: actions/checkout@v4
+      # - uses: actions/checkout@v4
 
       # - name: patch the file
       #   shell: bash
@@ -120,9 +120,9 @@ jobs:
         shell: powershell
         run: Get-Command ssh
 
-      - name: powershell git's own stuff
-        shell: powershell
-        run: Get-ChildItem -Recurse "C:\Program Files\Git"
+      # - name: powershell git's own stuff
+      #   shell: powershell
+      #   run: Get-ChildItem -Recurse "C:\Program Files\Git"
 
       - name: powershell git's own ssh_known_hosts
         shell: powershell
