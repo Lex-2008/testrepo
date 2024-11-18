@@ -160,6 +160,11 @@ jobs:
         shell: powershell
         run: Get-Command git
 
+      - name: verify
+        shell: bash
+        run: |
+          cat ~/.ssh/known_hosts
+
       - name: try ssh
         shell: bash
         run: |
