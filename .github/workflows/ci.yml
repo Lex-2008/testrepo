@@ -159,7 +159,7 @@ jobs:
       - name: clone smth
         shell: bash
         run: |
-          "C:\tools\git\mingw64\bin\git.exe" clone git@github.com:reMarkable/vcpkg.git
+          "C:\tools\git\mingw64\bin\git.exe" clone --verbose git@github.com:reMarkable/vcpkg.git
 
       # - name: install port
       #   env:
