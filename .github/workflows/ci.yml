@@ -164,7 +164,8 @@ jobs:
         run: Get-Command git
 
       - name: clone smth
-        run: "C:\tools\git\mingw64\bin\git.exe" "--git-dir=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git\.git" "--work-tree=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git" -c core.autocrlf=false fetch --update-shallow -- git@github.com:reMarkable/vcpkg.git HEAD
+        run: |
+          "C:\tools\git\mingw64\bin\git.exe" "--git-dir=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git\.git" "--work-tree=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git" -c core.autocrlf=false fetch --update-shallow -- git@github.com:reMarkable/vcpkg.git HEAD
 
       # - name: install port
       #   env:
