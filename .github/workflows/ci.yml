@@ -156,6 +156,11 @@ jobs:
         shell: powershell
         run: Get-Command git
 
+      - name: try ssh
+        shell: bash
+        run: |
+          ssh --verbose git@github.com
+
       - name: clone smth
         shell: bash
         run: |
