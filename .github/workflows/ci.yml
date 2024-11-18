@@ -159,7 +159,7 @@ jobs:
       - name: try ssh
         shell: bash
         run: |
-          ssh --verbose git@github.com
+          ssh -vvv git@github.com
 
       - name: clone smth
         shell: bash
