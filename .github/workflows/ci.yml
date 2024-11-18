@@ -159,7 +159,7 @@ jobs:
       - name: clone smth
         shell: bash
         run: |
-          "C:\tools\git\mingw64\bin\git.exe" "--git-dir=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git\.git" "--work-tree=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git" -c core.autocrlf=false fetch --update-shallow -- git@github.com:reMarkable/vcpkg.git HEAD
+          "C:\tools\git\mingw64\bin\git.exe" clone git@github.com:reMarkable/vcpkg.git
 
       # - name: install port
       #   env:
