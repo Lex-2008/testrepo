@@ -151,6 +151,9 @@ jobs:
           mkdir -p ~/.ssh
           # note: cp -T: treat DEST as a normal file, not a directory
           cp -T "/c/Program Files/Git/etc/ssh/ssh_known_hosts" ~/.ssh/known_hosts
+          # use RSA to verify gohub.com hostkey, because above file doesn't have ed25519
+          echo "Host github.com" >>~/.ssh/config
+          echo "HostKeyAlgorithms=ssh-rsa" >>~/.ssh/config
 
       - name: new powershell git
         shell: powershell
@@ -164,6 +167,7 @@ jobs:
       - name: clone smth
         shell: bash
         run: |
+          export 
           "C:\tools\git\mingw64\bin\git.exe" clone --verbose git@github.com:reMarkable/vcpkg.git
 
       # - name: install port
