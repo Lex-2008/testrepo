@@ -150,13 +150,21 @@ jobs:
       # - name: cmake easy find Python3
       #   run: cmake -S . -B test
       - name: Downgrade git
+        shell: bash
         run: |
           choco install git.portable --version=2.46.2 --force --no-progress --limit-output
-          Add-Content -Path "$env:GITHUB_PATH" -Value "C:/tools/git/bin"
+          echo "C:/tools/git/bin" >> "$GITHUB_PATH"
+          # Copy preinstalled host keys from git ssh to bash ssh
+          mkdir -p ~/.ssh
+          # note: cp -T: treat DEST as a normal file, not a directory
+          cp -T "/c/Program Files/Git/etc/ssh/ssh_known_hosts" ~/.ssh/known_hosts
 
       - name: new powershell git
         shell: powershell
         run: Get-Command git
+
+      - name: clone smth
+        run: "C:\tools\git\mingw64\bin\git.exe" "--git-dir=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git\.git" "--work-tree=C:\Users\runneradmin\AppData\Local\vcpkg\registries\git" -c core.autocrlf=false fetch --update-shallow -- git@github.com:reMarkable/vcpkg.git HEAD
 
       # - name: install port
       #   env:
