@@ -73,8 +73,8 @@ jobs:
       - run: Get-DisplayResolution
 
       - run: |
-        Add-Type -AssemblyName System.Windows.Forms
-        [System.Windows.Forms.Screen]::AllScreens
+          Add-Type -AssemblyName System.Windows.Forms
+          [System.Windows.Forms.Screen]::AllScreens
 
       - run: Get-CimInstance -ClassName CIM_VideoController
 
