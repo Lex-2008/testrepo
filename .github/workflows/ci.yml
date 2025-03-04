@@ -70,6 +70,16 @@ jobs:
           # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
 
+      - run: Get-DisplayResolution
+
+      - run: |
+        Add-Type -AssemblyName System.Windows.Forms
+        [System.Windows.Forms.Screen]::AllScreens
+
+      - run: Get-CimInstance -ClassName CIM_VideoController
+
+      - run: Get-CimInstance -ClassName CIM_VideoControllerResolution
+
 
       # - uses: actions/checkout@v4
 
