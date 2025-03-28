@@ -116,11 +116,11 @@ jobs:
 
       - name: default bash git
         shell: bash
-        run: which git
+        run: git config --list
 
       - name: default powershell git
         shell: powershell
-        run: Get-Command git
+        run: git config --list
 
       - name: default bash ssh
         shell: bash
