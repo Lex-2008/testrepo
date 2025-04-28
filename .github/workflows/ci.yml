@@ -40,7 +40,7 @@ jobs:
     # NOTE: cant use expressions here
     # uses: ./.github/workflows/first.yml
 
-    runs-on: windows-latest
+    runs-on: self-hosted
     steps:
 
       # - id: id
