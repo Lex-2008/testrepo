@@ -145,7 +145,11 @@ jobs:
               Get-ProcessAndChildProcesses 0 $Process
           }
 
-      - run: dir c:\actions\settings\.cache
+      - run: dir c:
+
+      - run: dir "c:\actions"
+
+      - run: dir "c:\actions\settings\.cache"
 
       - run: Get-Content c:\actions\settings\.cache
 
