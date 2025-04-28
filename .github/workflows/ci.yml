@@ -149,9 +149,11 @@ jobs:
 
       - run: dir "c:\actions"
 
-      - run: dir "c:\actions\settings\.cache"
+      - run: dir "c:\actions\runner-provisioner-Windows"
 
-      - run: Get-Content c:\actions\settings\.cache
+      - run: dir "c:\actions\settings"
+
+      - run: Get-Content "c:\actions\settings\.cache"
 
       - run: stop here
 
