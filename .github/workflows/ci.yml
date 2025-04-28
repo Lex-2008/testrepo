@@ -145,7 +145,7 @@ jobs:
               Get-ProcessAndChildProcesses 0 $Process
           }
 
-      - run: dir c:
+      - run: dir "c:"
 
       - run: dir "c:\actions"
 
