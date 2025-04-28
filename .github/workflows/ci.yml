@@ -148,12 +148,14 @@ jobs:
       - run: dir "c:"
 
       - run: dir "c:\actions"
-
       - run: dir "c:\actions\runner-provisioner-Windows"
-
       - run: dir "c:\actions\settings"
 
-      - run: Get-Content "c:\actions\settings\.cache"
+      - run: dir "c:\runners"
+      - run: dir "c:\runners\2.323.0"
+      - run: dir "c:\runners\2.323.0\bin\"
+
+      - run: Get-Content "c:\runners\2.323.0\.runner"
 
       - run: stop here
 
