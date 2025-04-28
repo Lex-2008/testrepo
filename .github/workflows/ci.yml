@@ -40,7 +40,7 @@ jobs:
     # NOTE: cant use expressions here
     # uses: ./.github/workflows/first.yml
 
-    runs-on: windows-latest
+    runs-on: self-hosted
     steps:
 
       # - id: id
@@ -70,18 +70,20 @@ jobs:
           # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
 
-      - run: Get-DisplayResolution
+      - run: Get-Location
 
-      - run: |
-          Add-Type -AssemblyName System.Windows.Forms
-          [System.Windows.Forms.Screen]::AllScreens
+      # - run: Get-DisplayResolution
 
-      - run: Get-CimInstance -ClassName CIM_VideoController
+      # - run: |
+          # Add-Type -AssemblyName System.Windows.Forms
+          # [System.Windows.Forms.Screen]::AllScreens
 
-      - run: Get-CimInstance -ClassName CIM_VideoControllerResolution
+      # - run: Get-CimInstance -ClassName CIM_VideoController
+
+      # - run: Get-CimInstance -ClassName CIM_VideoControllerResolution
 
 
-      # - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       # - name: patch the file
       #   shell: bash
@@ -113,6 +115,8 @@ jobs:
       #   with:
       #     name: Support.cmake
       #     path: c:/Program Files/CMake/share/cmake-3.27/Modules/FindPython/Support.cmake
+
+      - run: stop here
 
       - name: default bash git
         shell: bash
