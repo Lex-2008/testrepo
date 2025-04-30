@@ -155,8 +155,7 @@ jobs:
       - run: dir "c:\runners\2.323.0"
       - run: dir "c:\runners\2.323.0\bin\"
 
-      - run: Get-Content "c:\runners\2.323.0\.runner" | jq
-      - run: jq --help
+      - run: Get-Content "c:\runners\2.323.0\.runner"
 
       - run: stop here
 
