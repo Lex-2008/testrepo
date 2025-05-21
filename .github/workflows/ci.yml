@@ -40,7 +40,7 @@ jobs:
     # NOTE: cant use expressions here
     # uses: ./.github/workflows/first.yml
 
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
 
       # - id: id
@@ -69,6 +69,15 @@ jobs:
 
           # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
+
+      - run: Get-WmiObject -Class Win32_Processor
+
+      - run: Get-WmiObject -Class Win32_Processor | Select-Object -Property *
+
+      - run: Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -Property *
+
+      - run: nproc
+        shell: bash
 
       - run: Get-Location
 
