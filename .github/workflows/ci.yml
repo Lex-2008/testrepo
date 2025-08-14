@@ -70,7 +70,24 @@ jobs:
           # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
 
+      - run: where signtool.exe
+
+      - uses: KamaranL/add-signtool-action@v1
+        id: signtool
+
+      - run: Write-Output "$env:SIGNTOOL_DIR"
+        # prints out the absolute path to the located signtool executable
+        shell: pwsh
+        env:
+          SIGNTOOL_DIR: ${{ steps.signtool.outputs.signtool-x64 }}
+
+      - run: where signtool.exe
+
+      - run: signtool.exe /?
+
       - run: Get-WmiObject -Class Win32_Processor
+
+      - run: Get-DisplayResolution
 
       - run: Get-WmiObject -Class Win32_Processor | Select-Object -Property *
 
