@@ -70,33 +70,33 @@ jobs:
           # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
           # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
 
-      - run: where signtool.exe
-
-      - uses: KamaranL/add-signtool-action@v1
-        id: signtool
-
-      - run: Write-Output "$env:SIGNTOOL_DIR"
-        # prints out the absolute path to the located signtool executable
-        shell: pwsh
-        env:
-          SIGNTOOL_DIR: ${{ steps.signtool.outputs.signtool-x64 }}
-
-      - run: where signtool.exe
-
-      - run: signtool.exe /?
-
-      - run: Get-WmiObject -Class Win32_Processor
-
-      - run: Get-DisplayResolution
-
-      - run: Get-WmiObject -Class Win32_Processor | Select-Object -Property *
-
-      - run: Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -Property *
-
-      - run: nproc
-        shell: bash
-
-      - run: Get-Location
+      # - run: where signtool.exe
+      #
+      # - uses: KamaranL/add-signtool-action@v1
+      #   id: signtool
+      #
+      # - run: Write-Output "$env:SIGNTOOL_DIR"
+      #   # prints out the absolute path to the located signtool executable
+      #   shell: pwsh
+      #   env:
+      #     SIGNTOOL_DIR: ${{ steps.signtool.outputs.signtool-x64 }}
+      #
+      # - run: where signtool.exe
+      #
+      # - run: signtool.exe /?
+      #
+      # - run: Get-WmiObject -Class Win32_Processor
+      #
+      # - run: Get-DisplayResolution
+      #
+      # - run: Get-WmiObject -Class Win32_Processor | Select-Object -Property *
+      #
+      # - run: Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -Property *
+      #
+      # - run: nproc
+      #   shell: bash
+      #
+      # - run: Get-Location
 
       # - run: Get-DisplayResolution
 
@@ -110,6 +110,14 @@ jobs:
 
 
       - uses: actions/checkout@v4
+
+      - shell: bash
+        run: |
+          powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+          export AQT_CONFIG="$PWD/aqt.ini"
+          QT_BASE_DIR="$(realpath "${GITHUB_WORKSPACE}/..")"
+          uvx --from aqtinstall@3.3.0 aqt install-qt -O "${QT_BASE_DIR}/Qt" windows desktop 6.8.2 win64_msvc2022_64 -m qt5compat qtwebsockets qtwebview qtwebchannel qtpositioning qtwebengine
+
 
       # - name: patch the file
       #   shell: bash
@@ -171,92 +179,92 @@ jobs:
               Get-ProcessAndChildProcesses 0 $Process
           }
 
-      - run: dir "c:"
-
-      - run: dir "c:\actions"
-      - run: dir "c:\actions\runner-provisioner-Windows"
-      - run: dir "c:\actions\settings"
-
-      - run: dir "c:\runners"
-      - run: dir "c:\runners\2.323.0"
-      - run: dir "c:\runners\2.323.0\bin\"
-
-      - run: Get-Content "c:\runners\2.323.0\.runner"
-
-      - run: stop here
-
-      - name: default bash git
-        shell: bash
-        run: git config --list
-
-      - name: default powershell git
-        shell: powershell
-        run: git config --list
-
-      - name: default bash ssh
-        shell: bash
-        run: which ssh
-
-      - name: default powershell ssh
-        shell: powershell
-        run: Get-Command ssh
-
-      # - name: powershell git's own stuff
-      #   shell: powershell
-      #   run: Get-ChildItem -Recurse "C:\Program Files\Git"
-
-      - name: powershell git's own ssh_known_hosts
-        shell: powershell
-        run: Get-Content "C:\Program Files\Git\etc\ssh\ssh_known_hosts"
-
-      # - name: export
+      # - run: dir "c:"
+      #
+      # - run: dir "c:\actions"
+      # - run: dir "c:\actions\runner-provisioner-Windows"
+      # - run: dir "c:\actions\settings"
+      #
+      # - run: dir "c:\runners"
+      # - run: dir "c:\runners\2.323.0"
+      # - run: dir "c:\runners\2.323.0\bin\"
+      #
+      # - run: Get-Content "c:\runners\2.323.0\.runner"
+      #
+      # - run: stop here
+      #
+      # - name: default bash git
       #   shell: bash
-      #   run: export
-
-
-      # - name: python3 venv
+      #   run: git config --list
+      #
+      # - name: default powershell git
+      #   shell: powershell
+      #   run: git config --list
+      #
+      # - name: default bash ssh
+      #   shell: bash
+      #   run: which ssh
+      #
+      # - name: default powershell ssh
+      #   shell: powershell
+      #   run: Get-Command ssh
+      #
+      # # - name: powershell git's own stuff
+      # #   shell: powershell
+      # #   run: Get-ChildItem -Recurse "C:\Program Files\Git"
+      #
+      # - name: powershell git's own ssh_known_hosts
+      #   shell: powershell
+      #   run: Get-Content "C:\Program Files\Git\etc\ssh\ssh_known_hosts"
+      #
+      # # - name: export
+      # #   shell: bash
+      # #   run: export
+      #
+      #
+      # # - name: python3 venv
+      # #   shell: bash
+      # #   run: |
+      # #     python3 -m venv test-venv
+      # #     find test-venv
+      # #     test-venv/Scripts/python -c 'print(12)'
+      #
+      # # - name: cmake easy find Python3
+      # #   run: cmake -S . -B test
+      # - name: Downgrade git
       #   shell: bash
       #   run: |
-      #     python3 -m venv test-venv
-      #     find test-venv
-      #     test-venv/Scripts/python -c 'print(12)'
-
-      # - name: cmake easy find Python3
-      #   run: cmake -S . -B test
-      - name: Downgrade git
-        shell: bash
-        run: |
-          choco install git.portable --version=2.46.2 --force --no-progress --limit-output
-          echo "C:/tools/git/bin" >> "$GITHUB_PATH"
-          # Copy preinstalled host keys from git ssh to bash ssh
-          mkdir -p ~/.ssh
-          # note: cp -T: treat DEST as a normal file, not a directory
-          cp -T "/c/Program Files/Git/etc/ssh/ssh_known_hosts" ~/.ssh/known_hosts
-          # use RSA to verify gohub.com hostkey, because above file doesn't have ed25519
-          echo "Host github.com" >>~/.ssh/config
-          echo "HostKeyAlgorithms=ssh-rsa" >>~/.ssh/config
-          chmod 400 ~/.ssh/config
-
-      - name: new powershell git
-        shell: powershell
-        run: Get-Command git
-
-      - name: verify
-        shell: bash
-        run: |
-          file ~/.ssh/known_hosts
-          dos2unix ~/.ssh/known_hosts
-
-      - name: try ssh
-        shell: bash
-        run: |
-          ssh -vvv git@github.com
-
-      - name: clone smth
-        shell: bash
-        run: |
-          export 
-          "C:\tools\git\mingw64\bin\git.exe" clone --verbose git@github.com:reMarkable/vcpkg.git
+      #     choco install git.portable --version=2.46.2 --force --no-progress --limit-output
+      #     echo "C:/tools/git/bin" >> "$GITHUB_PATH"
+      #     # Copy preinstalled host keys from git ssh to bash ssh
+      #     mkdir -p ~/.ssh
+      #     # note: cp -T: treat DEST as a normal file, not a directory
+      #     cp -T "/c/Program Files/Git/etc/ssh/ssh_known_hosts" ~/.ssh/known_hosts
+      #     # use RSA to verify gohub.com hostkey, because above file doesn't have ed25519
+      #     echo "Host github.com" >>~/.ssh/config
+      #     echo "HostKeyAlgorithms=ssh-rsa" >>~/.ssh/config
+      #     chmod 400 ~/.ssh/config
+      #
+      # - name: new powershell git
+      #   shell: powershell
+      #   run: Get-Command git
+      #
+      # - name: verify
+      #   shell: bash
+      #   run: |
+      #     file ~/.ssh/known_hosts
+      #     dos2unix ~/.ssh/known_hosts
+      #
+      # - name: try ssh
+      #   shell: bash
+      #   run: |
+      #     ssh -vvv git@github.com
+      #
+      # - name: clone smth
+      #   shell: bash
+      #   run: |
+      #     export 
+      #     "C:\tools\git\mingw64\bin\git.exe" clone --verbose git@github.com:reMarkable/vcpkg.git
 
       # - name: install port
       #   env:
