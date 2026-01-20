@@ -114,6 +114,9 @@ jobs:
       - shell: bash
         run: |
           powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+      - shell: bash
+        run: |
           export AQT_CONFIG="$PWD/aqt.ini"
           QT_BASE_DIR="$(realpath "${GITHUB_WORKSPACE}/..")"
           uvx --from aqtinstall@3.3.0 aqt install-qt -O "${QT_BASE_DIR}/Qt" windows desktop 6.8.2 win64_msvc2022_64 -m qt5compat qtwebsockets qtwebview qtwebchannel qtpositioning qtwebengine
