@@ -19,6 +19,7 @@ jobs:
 
       - name: Configure and build without ccache
         run: |
+          $ErrorActionPreference = "Stop"
           cmake . -B build/no_ccache -DCMAKE_BUILD_TYPE=Release
           cmake --build build/no_ccache --config Release
 
@@ -49,6 +50,7 @@ jobs:
           CCACHE_BASEDIR: ${{ github.workspace }}
           CCACHE_DIR: ${{ github.workspace }}\.ccache
         run: |
+          $ErrorActionPreference = "Stop"
           cmake . -B build/with_ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           cmake --build build/with_ccache --config Release
           ccache --show-stats
