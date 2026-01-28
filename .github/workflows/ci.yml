@@ -1,307 +1,48 @@
-on: push
+name: CI
+
+on:
+  push:
+  pull_request:
 
 jobs:
-
-  # set-matrix:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     matrix: ${{ steps.set-matrix.outputs.matrix }}
-  #   steps:
-  #     - name: set-matrix
-  #       shell: python
-  #       run: |
-  #         import os
-  #
-  #         matrix=[{'run':'ls -la /'}]
-  #
-  #         matrix={'include':[]}
-  #         matrix['include'].append({ 'name':'first', 'os': 'ubuntu-latest', 'filename': 'first.yml'})
-  #         matrix['include'].append({ 'name':'second', 'os': 'ubuntu-latest', 'filename': 'second.yml'})
-  #
-  #         with open('./.github/workflows/first.yml', 'a') as output:
-  #             output.write("
-  #         on:
-  #           workflow_call:
-  #
-  #         jobs:
-  #           print-username:
-  #             runs-on: ubuntu-latest
-  #
-  #             steps:
-  #               - name: Print the input name to STDOUT
-  #                 run: echo hello world
-  #         ")
-  #   
-  #         with open(os.environ["GITHUB_OUTPUT"], 'a') as output:
-  #             output.write(f"{matrix=}")
-  #           print(f"output:\n{matrix=}")
-
-  test:
-    # NOTE: cant use expressions here
-    # uses: ./.github/workflows/first.yml
-
+  build-no-ccache:
     runs-on: windows-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # - id: id
-      #   run: echo key=false >>$GITHUB_OUTPUT
-      # - run: ${{ steps.id.outputs.no_such_key }}
-      # - run: echo ${{ steps.id.outputs.key }}
-      # - if: steps.id.outputs.key
-      #   run: echo nooo
-      # - if: ${{ steps.id.outputs.key }}
-      #   run: echo nooo
-      # - if: ${{ steps.id.outputs.key == 'True' }}
-      #   run: echo nooo
-      # - if: steps.id.outputs.key == 'True'
-      #   run: echo nooo
-      # - if: ${{ fromJSON(steps.id.outputs.key) }}
-      #   run: echo nooo
-      # - if: fromJSON(steps.id.outputs.key)
-      #   run: echo nooo
+      - name: Set up MSVC
+        uses: ilammy/msvc-dev-cmd@v1
 
-      # - run: |
-      #     echo "$ANDROID_HOME"
-      #     echo "$ANDROID_SDK_ROOT"
-      #     # find "${ANDROID_HOME}" -name sdkmanager
-      #     sudo "${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin/sdkmanager" --install "ndk;25.2.9519653"
-
-
-          # /usr/local/lib/android/sdk/ cmdline-tools/latest/bin/sdkmanager
-          # /usr/local/lib/android/sdk/ tools/bin/sdkmanager
-
-      # - run: where signtool.exe
-      #
-      # - uses: KamaranL/add-signtool-action@v1
-      #   id: signtool
-      #
-      # - run: Write-Output "$env:SIGNTOOL_DIR"
-      #   # prints out the absolute path to the located signtool executable
-      #   shell: pwsh
-      #   env:
-      #     SIGNTOOL_DIR: ${{ steps.signtool.outputs.signtool-x64 }}
-      #
-      # - run: where signtool.exe
-      #
-      # - run: signtool.exe /?
-      #
-      # - run: Get-WmiObject -Class Win32_Processor
-      #
-      # - run: Get-DisplayResolution
-      #
-      # - run: Get-WmiObject -Class Win32_Processor | Select-Object -Property *
-      #
-      # - run: Get-CimInstance -ClassName Win32_ComputerSystem | Select-Object -Property *
-      #
-      # - run: nproc
-      #   shell: bash
-      #
-      # - run: Get-Location
-
-      # - run: Get-DisplayResolution
-
-      # - run: |
-          # Add-Type -AssemblyName System.Windows.Forms
-          # [System.Windows.Forms.Screen]::AllScreens
-
-      # - run: Get-CimInstance -ClassName CIM_VideoController
-
-      # - run: Get-CimInstance -ClassName CIM_VideoControllerResolution
-
-
-      - uses: actions/checkout@v4
-
-      - shell: bash
+      - name: Build without ccache
         run: |
-          powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+          cl /std:c++17 hello.cpp /Fe:hello_no_ccache.exe
 
-      - shell: bash
+  build-with-ccache:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install ccache
         run: |
-          QT_BASE_DIR="$(realpath "${GITHUB_WORKSPACE}/..")"
-          uvx --from aqtinstall@3.3.0 aqt install-qt -O "${QT_BASE_DIR}/Qt" windows desktop 6.8.2 win64_msvc2022_64 -m qt5compat qtwebsockets qtwebview qtwebchannel qtpositioning qtwebengine
+          choco install ccache -y
 
-
-      # - name: patch the file
-      #   shell: bash
-      #   run: cp Support.cmake '/c/Program Files/CMake/share/cmake-3.27/Modules/FindPython/'
-
-      # - name: path
-      #   shell: bash
-      #   run: "echo $PATH | tr : '\\n'"
-
-      # - name: ls path
-      #   shell: bash
-      #   run: "echo $PATH | xargs -d: ls -la || true"
-
-      # - name: ls /
-      #   shell: bash
-      #   run: "ls -la /"
-
-      # - name: find cmake on c
-      #   shell: bash
-      #   run: "find /c -iname '*.cmake' 2>/dev/null"
-
-      # - name: find cmake on d
-      #   if: ${{ !cancelled() }}
-      #   shell: bash
-      #   run: "find /d -iname '*.cmake' 2>/dev/null"
-
-      # - name: Archive production artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: Support.cmake
-      #     path: c:/Program Files/CMake/share/cmake-3.27/Modules/FindPython/Support.cmake
-
-      - name: process tree
-        shell: powershell
+      - name: Configure ccache
         run: |
-          function Get-ProcessAndChildProcesses($Level, $Process) {
-              "{0}[{1,-5}] [{2}][{3}] {4}" -f ("  " * $Level), $Process.ProcessId, $Process.Name, $Process.Path, $Process.CommandLine
-              $Children = $AllProcesses | where-object {$_.ParentProcessId -eq $Process.ProcessId -and $_.CreationDate -ge $Process.CreationDate}
-              if ($null -ne $Children) {
-                  foreach ($Child in $Children) {
-                      Get-ProcessAndChildProcesses ($Level + 1) $Child
-                  }
-              }
-          }
+          ccache --version
+          ccache --zero-stats
 
-          $AllProcesses = Get-CimInstance -ClassName "win32_process"
-          $RootProcesses = @()
-          # Process "System Idle Process" is processed differently, as ProcessId and ParentProcessId are 0
-          # $AllProcesses is sliced from index 1 to the end of the array
-          foreach ($Process in $AllProcesses[1..($AllProcesses.length-1)]) {
-              $Parent = $AllProcesses | where-object {$_.ProcessId -eq $Process.ParentProcessId -and $_.CreationDate -lt $Process.CreationDate}
-              if ($null -eq $Parent) {
-                  $RootProcesses += $Process
-              }
-          }
-          # Process the "System Idle process" separately
-          "[{0,-5}] [{1}]" -f $AllProcesses[0].ProcessId, $AllProcesses[0].Name
-          foreach ($Process in $RootProcesses) {
-              Get-ProcessAndChildProcesses 0 $Process
-          }
-
-      # - run: dir "c:"
-      #
-      # - run: dir "c:\actions"
-      # - run: dir "c:\actions\runner-provisioner-Windows"
-      # - run: dir "c:\actions\settings"
-      #
-      # - run: dir "c:\runners"
-      # - run: dir "c:\runners\2.323.0"
-      # - run: dir "c:\runners\2.323.0\bin\"
-      #
-      # - run: Get-Content "c:\runners\2.323.0\.runner"
-      #
-      # - run: stop here
-      #
-      # - name: default bash git
-      #   shell: bash
-      #   run: git config --list
-      #
-      # - name: default powershell git
-      #   shell: powershell
-      #   run: git config --list
-      #
-      # - name: default bash ssh
-      #   shell: bash
-      #   run: which ssh
-      #
-      # - name: default powershell ssh
-      #   shell: powershell
-      #   run: Get-Command ssh
-      #
-      # # - name: powershell git's own stuff
-      # #   shell: powershell
-      # #   run: Get-ChildItem -Recurse "C:\Program Files\Git"
-      #
-      # - name: powershell git's own ssh_known_hosts
-      #   shell: powershell
-      #   run: Get-Content "C:\Program Files\Git\etc\ssh\ssh_known_hosts"
-      #
-      # # - name: export
-      # #   shell: bash
-      # #   run: export
-      #
-      #
-      # # - name: python3 venv
-      # #   shell: bash
-      # #   run: |
-      # #     python3 -m venv test-venv
-      # #     find test-venv
-      # #     test-venv/Scripts/python -c 'print(12)'
-      #
-      # # - name: cmake easy find Python3
-      # #   run: cmake -S . -B test
-      # - name: Downgrade git
-      #   shell: bash
-      #   run: |
-      #     choco install git.portable --version=2.46.2 --force --no-progress --limit-output
-      #     echo "C:/tools/git/bin" >> "$GITHUB_PATH"
-      #     # Copy preinstalled host keys from git ssh to bash ssh
-      #     mkdir -p ~/.ssh
-      #     # note: cp -T: treat DEST as a normal file, not a directory
-      #     cp -T "/c/Program Files/Git/etc/ssh/ssh_known_hosts" ~/.ssh/known_hosts
-      #     # use RSA to verify gohub.com hostkey, because above file doesn't have ed25519
-      #     echo "Host github.com" >>~/.ssh/config
-      #     echo "HostKeyAlgorithms=ssh-rsa" >>~/.ssh/config
-      #     chmod 400 ~/.ssh/config
-      #
-      # - name: new powershell git
-      #   shell: powershell
-      #   run: Get-Command git
-      #
-      # - name: verify
-      #   shell: bash
-      #   run: |
-      #     file ~/.ssh/known_hosts
-      #     dos2unix ~/.ssh/known_hosts
-      #
-      # - name: try ssh
-      #   shell: bash
-      #   run: |
-      #     ssh -vvv git@github.com
-      #
-      # - name: clone smth
-      #   shell: bash
-      #   run: |
-      #     export 
-      #     "C:\tools\git\mingw64\bin\git.exe" clone --verbose git@github.com:reMarkable/vcpkg.git
-
-      # - name: install port
-      #   env:
-      #     VCPKG_KEEP_ENV_VARS: PATH
-      #   run: vcpkg install vcpkg-sample-library --overlay-ports=port
-
-      # - name: cmake HARD find Python3
-      #   run: cmake -S . "-G" "Ninja" "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_INSTALL_PREFIX=C:/vcpkg/packages/qt_x64-windows-dynamic" "-DFETCHCONTENT_FULLY_DISCONNECTED=ON" "-DQT_ARCH=win64_msvc2019_64" "-DQT_TARGET_SYSTEM=desktop" "-DQT_TOOLS_DIR=bin" "-DQT_MODULES=qt5compat qtwebsockets" "-DQT_VERSION=6.5.2" "-DVCPKG_HOST_TRIPLET=x64-windows" "-DCMAKE_MAKE_PROGRAM=C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" "-DBUILD_SHARED_LIBS=ON" "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=C:/vcpkg/scripts/toolchains/windows.cmake" "-DVCPKG_TARGET_TRIPLET=x64-windows-dynamic" "-DVCPKG_SET_CHARSET_FLAG=ON" "-DVCPKG_PLATFORM_TOOLSET=v143" "-DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY=ON" "-DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=TRUE" "-DCMAKE_VERBOSE_MAKEFILE=ON" "-DVCPKG_APPLOCAL_DEPS=OFF" "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION=ON" "-DVCPKG_CXX_FLAGS=" "-DVCPKG_CXX_FLAGS_RELEASE=" "-DVCPKG_CXX_FLAGS_DEBUG=" "-DVCPKG_C_FLAGS=" "-DVCPKG_C_FLAGS_RELEASE=" "-DVCPKG_C_FLAGS_DEBUG=" "-DVCPKG_CRT_LINKAGE=dynamic" "-DVCPKG_LINKER_FLAGS=" "-DVCPKG_LINKER_FLAGS_RELEASE=" "-DVCPKG_LINKER_FLAGS_DEBUG=" "-DVCPKG_TARGET_ARCHITECTURE=x64" "-DCMAKE_INSTALL_LIBDIR:STRING=lib" "-DCMAKE_INSTALL_BINDIR:STRING=bin" "-D_VCPKG_ROOT_DIR=C:/vcpkg" "-DVCPKG_MANIFEST_INSTALL=OFF"
-
-      # - name: original above line
-      # run: cmake -S . "-G" "Ninja" "-DCMAKE_BUILD_TYPE=Release" "-DCMAKE_INSTALL_PREFIX=C:/vcpkg/packages/qt_x64-windows-dynamic" "-DFETCHCONTENT_FULLY_DISCONNECTED=ON" "-DQT_ARCH=win64_msvc2019_64" "-DQT_TARGET_SYSTEM=desktop" "-DQT_TOOLS_DIR=bin" "-DQT_MODULES=qt5compat qtwebsockets" "-DQT_VERSION=6.5.2" "-DVCPKG_HOST_TRIPLET=x64-windows" "-DCMAKE_MAKE_PROGRAM=C:/Program Files/Microsoft Visual Studio/2022/Enterprise/Common7/IDE/CommonExtensions/Microsoft/CMake/Ninja/ninja.exe" "-DBUILD_SHARED_LIBS=ON" "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=C:/vcpkg/scripts/toolchains/windows.cmake" "-DVCPKG_TARGET_TRIPLET=x64-windows-dynamic" "-DVCPKG_SET_CHARSET_FLAG=ON" "-DVCPKG_PLATFORM_TOOLSET=v143" "-DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY=ON" "-DCMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY=ON" "-DCMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=TRUE" "-DCMAKE_VERBOSE_MAKEFILE=ON" "-DVCPKG_APPLOCAL_DEPS=OFF" "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION=ON" "-DVCPKG_CXX_FLAGS=" "-DVCPKG_CXX_FLAGS_RELEASE=" "-DVCPKG_CXX_FLAGS_DEBUG=" "-DVCPKG_C_FLAGS=" "-DVCPKG_C_FLAGS_RELEASE=" "-DVCPKG_C_FLAGS_DEBUG=" "-DVCPKG_CRT_LINKAGE=dynamic" "-DVCPKG_LINKER_FLAGS=" "-DVCPKG_LINKER_FLAGS_RELEASE=" "-DVCPKG_LINKER_FLAGS_DEBUG=" "-DVCPKG_TARGET_ARCHITECTURE=x64" "-DCMAKE_INSTALL_LIBDIR:STRING=lib" "-DCMAKE_INSTALL_BINDIR:STRING=bin" "-D_VCPKG_ROOT_DIR=C:/vcpkg" "-D_VCPKG_INSTALLED_DIR=D:/a/ark-library/ark-library/build/x64-windows-msvc-dynamic/vcpkg_installed" "-DVCPKG_MANIFEST_INSTALL=OFF"
-
-      # - name: cmake-found python3 venv bash
-      #   shell: bash
-      #   run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test2-venv
-      #
-      # - name: cmake-found python3 venv
-      #   if: ${{ !cancelled() }}
-      #   run: C:/hostedtoolcache/windows/Python/3.12.0/x64/python3.exe -m venv test3-venv
-      #
-      # - name: find test2
-      #   shell: bash
-      #   if: ${{ !cancelled() }}
-      #   run: |
-      #     find test2-venv
-      #     test2-venv/Scripts/python -c 'print(12)'
-      #
-      # - name: find test3
-      #   shell: bash
-      #   if: ${{ !cancelled() }}
-      #   run: |
-      #     find test3-venv
-      #     test3-venv/Scripts/python -c 'print(12)'
-
-      # - name: Dump Windows vcpkg logs
-      #   shell: bash
-      #   run: find "c:/vcpkg/buildtrees" -name '*.log' -exec echo "::group::{}" \; -exec cat {} \;
+      - name: Build with ccache
+        env:
+          CC: cl
+          CXX: cl
+          CCACHE_BASEDIR: ${{ github.workspace }}
+          CCACHE_DIR: ${{ github.workspace }}\.ccache
+        run: |
+          ccache cl /std:c++17 hello.cpp /Fe:hello_with_ccache.exe
+          ccache --show-stats
 
