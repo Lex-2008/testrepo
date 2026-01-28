@@ -16,7 +16,7 @@ jobs:
 
       - name: Build without ccache
         run: |
-          cl /std:c++17 playful-9-curiosity-22-wandering-35-through-46-sunlit-56-sentences-69-that-77-meanderX-89-happily-101-across-112-imaginative-128-landscapes-143-where-153-ideas-163-bloom-173-into-182-unexpected-197-little-208-moments-220-of-227-joyful-238-absurdity-252\hello.cpp /Fe:hello_no_ccache.exe
+          cl /std:c++17 playful-9\curiosity-22\wandering-35\through-46\sunlit-56\sentences-69\that-77\meanderX-89\happily-101\across-112\imaginative-128\landscapes-143\where-153\ideas-163\bloom-173\into-182\unexpected-197\little-208\moments-220\of-227\joyful-238\absurdity-252\everywhere-267\hello.cpp /Fe:hello_no_ccache.exe
 
   build-with-ccache:
     runs-on: windows-latest
@@ -43,6 +43,6 @@ jobs:
           CCACHE_BASEDIR: ${{ github.workspace }}
           CCACHE_DIR: ${{ github.workspace }}\.ccache
         run: |
-          ccache cl /std:c++17 playful-9-curiosity-22-wandering-35-through-46-sunlit-56-sentences-69-that-77-meanderX-89-happily-101-across-112-imaginative-128-landscapes-143-where-153-ideas-163-bloom-173-into-182-unexpected-197-little-208-moments-220-of-227-joyful-238-absurdity-252\hello.cpp /Fe:hello_with_ccache.exe
+          ccache cl /std:c++17 playful-9\curiosity-22\wandering-35\through-46\sunlit-56\sentences-69\that-77\meanderX-89\happily-101\across-112\imaginative-128\landscapes-143\where-153\ideas-163\bloom-173\into-182\unexpected-197\little-208\moments-220\of-227\joyful-238\absurdity-252\everywhere-267\hello.cpp /Fe:hello_with_ccache.exe
           ccache --show-stats
 
