@@ -14,9 +14,13 @@ jobs:
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build without ccache
+      - name: Install CMake
+        uses: lukka/get-cmake@v5
+
+      - name: Configure and build without ccache
         run: |
-          cl /std:c++17 playful-9\curiosity-22\wandering-35\through-46\sunlit-56\sentences-69\that-77\meanderX-89\happily-101\across-112\imaginative-128\landscapes-143\where-153\ideas-163\bloom-173\into-182\unexpected-197\little-208\moments-220\hello.cpp /Fe:hello_no_ccache.exe
+          cmake . -B build/no_ccache -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/no_ccache --config Release
 
   build-with-ccache:
     runs-on: windows-latest
@@ -27,22 +31,24 @@ jobs:
       - name: Set up MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
+      - name: Install CMake
+        uses: lukka/get-cmake@v5
+
       - name: Install ccache
-        run: |
-          choco install ccache -y
+        run: choco install ccache -y
 
       - name: Configure ccache
         run: |
           ccache --version
           ccache --zero-stats
 
-      - name: Build with ccache
+      - name: Configure and build with ccache
         env:
           CC: cl
           CXX: cl
           CCACHE_BASEDIR: ${{ github.workspace }}
           CCACHE_DIR: ${{ github.workspace }}\.ccache
         run: |
-          ccache cl /std:c++17 playful-9\curiosity-22\wandering-35\through-46\sunlit-56\sentences-69\that-77\meanderX-89\happily-101\across-112\imaginative-128\landscapes-143\where-153\ideas-163\bloom-173\into-182\unexpected-197\little-208\moments-220\hello.cpp /Fe:hello_with_ccache.exe
+          cmake . -B build/with_ccache -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmake --build build/with_ccache --config Release
           ccache --show-stats
-
